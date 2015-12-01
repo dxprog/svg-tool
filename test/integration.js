@@ -3,7 +3,7 @@
 var path = require("path");
 var fs = require("fs");
 var should = require("chai").should();
-var svg2png = require("..");
+var svgTool = require("..");
 
 // We can't reliably reproduce the baked PNGs across
 // different machines and platforms, so we'll instead
@@ -19,7 +19,7 @@ function assertCloseEnough(file1, file2) {
 }
 
 specify("Scale 1.svg to 80%", function (done) {
-    svg2png(relative("images/1.svg"), relative("images/1-actual.png"), 0.8, function (err) {
+    svgTool(relative("images/1.svg"), relative("images/1-actual.png"), 0.8, function (err) {
         if (err) {
             return done(err);
         }
@@ -29,7 +29,7 @@ specify("Scale 1.svg to 80%", function (done) {
 });
 
 specify("Scale 2.svg to 180%", function (done) {
-    svg2png(relative("images/2.svg"), relative("images/2-actual.png"), 1.8, function (err) {
+    svgTool(relative("images/2.svg"), relative("images/2-actual.png"), 1.8, function (err) {
         if (err) {
             return done(err);
         }
@@ -39,7 +39,7 @@ specify("Scale 2.svg to 180%", function (done) {
 });
 
 specify("Omit scale argument for 3.svg", function (done) {
-    svg2png(relative("images/3.svg"), relative("images/3-actual.png"), function (err) {
+    svgTool(relative("images/3.svg"), relative("images/3-actual.png"), function (err) {
         if (err) {
             return done(err);
         }
@@ -49,7 +49,7 @@ specify("Omit scale argument for 3.svg", function (done) {
 });
 
 specify("No green border for 4.svg", function (done) {
-    svg2png(relative("images/4.svg"), relative("images/4-actual.png"), function (err) {
+    svgTool(relative("images/4.svg"), relative("images/4-actual.png"), function (err) {
         if (err) {
             return done(err);
         }
@@ -59,7 +59,7 @@ specify("No green border for 4.svg", function (done) {
 });
 
 specify("Scales 5.svg correctly despite viewBox + fixed width/height", function (done) {
-    svg2png(relative("images/5.svg"), relative("images/5-actual.png"), 2, function (err) {
+    svgTool(relative("images/5.svg"), relative("images/5-actual.png"), 2, function (err) {
         if (err) {
             return done(err);
         }
@@ -69,7 +69,7 @@ specify("Scales 5.svg correctly despite viewBox + fixed width/height", function 
 });
 
 specify("Render an array of inputs to a single target directory", function (done) {
-    svg2png([ relative("images/3.svg"), relative("images/4.svg") ], relative("images/"), function (err) {
+    svgTool([ relative("images/3.svg"), relative("images/4.svg") ], relative("images/"), function (err) {
         if (err) {
             return done(err);
         }
@@ -84,7 +84,7 @@ specify("Render an array of inputs to a single target directory", function (done
 specify("Render an array of inputs to an array of targets", function (done) {
     var inFiles = [ relative("images/3.svg"), relative("images/4.svg") ];
     var outFiles = [ relative("images/3-actual.png"), relative("images/4-actual.png") ];
-    svg2png(inFiles, outFiles, function (err) {
+    svgTool(inFiles, outFiles, function (err) {
         if (err) {
             return done(err);
         }
@@ -97,7 +97,7 @@ specify("Render an array of inputs to an array of targets", function (done) {
 });
 
 it("should pass through errors that occur while calculating dimensions", function (done) {
-    svg2png(relative("images/invalid.svg"), relative("images/invalid-actual.png"), function (err) {
+    svgTool(relative("images/invalid.svg"), relative("images/invalid-actual.png"), function (err) {
         should.exist(err);
         err.should.have.property("message").and.match(/Unable to calculate dimensions./);
 
@@ -106,7 +106,7 @@ it("should pass through errors that occur while calculating dimensions", functio
 });
 
 it("should pass through errors about unloadable source files", function (done) {
-    svg2png("doesnotexist.asdf", "doesnotexist.asdf2", 1.0, function (err) {
+    svgTool("doesnotexist.asdf", "doesnotexist.asdf2", 1.0, function (err) {
         should.exist(err);
         err.should.have.property("message").that.equals("[doesnotexist.asdf] Unable to load the source file.");
 

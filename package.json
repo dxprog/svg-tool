@@ -1,11 +1,11 @@
 {
-  "name": "svg2png",
+  "name": "svg-tool",
   "description": "A SVG to PNG converter, using PhantomJS",
-  "version": "2.0.0",
-  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me)",
+  "version": "1.0.0",
+  "author": "Matt Hackmann <matt@dxprog.com> (http://dxprog.com)",
   "license": "WTFPL",
-  "repository": "domenic/svg2png",
-  "main": "lib/svg2png.js",
+  "repository": "dxprog/svg-tool",
+  "main": "lib/svg-tool.js",
   "files": [
     "lib/"
   ],
