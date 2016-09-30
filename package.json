@@ -1,7 +1,7 @@
 {
   "name": "svg-tool",
   "description": "A SVG to PNG converter, using PhantomJS",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Matt Hackmann <matt@dxprog.com> (http://dxprog.com)",
   "license": "WTFPL",
   "repository": "dxprog/svg-tool",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "bluebird": "^3.0.5",
-    "phantomjs": "^1.9.18",
+    "phantomjs-prebuilt": "^2.1.12",
     "tmp": "0.0.28"
   },
   "devDependencies": {
